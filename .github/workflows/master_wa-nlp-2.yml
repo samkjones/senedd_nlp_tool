@@ -34,15 +34,12 @@ jobs:
         
       # Optional: Add step to run tests here (PyTest, Django test suites, etc.)
 
-      - name: Zip artifact for deployment
-        run: zip release.zip ./* -r
-
       - name: Upload artifact for deployment jobs
         uses: actions/upload-artifact@v4
         with:
           name: python-app
           path: |
-            release.zip
+            .
             !venv/
 
   deploy:
@@ -54,10 +51,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: python-app
-
-      - name: Unzip artifact for deployment
-        run: unzip release.zip
-
       
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
@@ -65,4 +58,4 @@ jobs:
         with:
           app-name: 'wa-nlp-2'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_F49251477A5D4740B81E867296AD0DD4 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CC55177F3D1746408610988DD7C807C3 }}
